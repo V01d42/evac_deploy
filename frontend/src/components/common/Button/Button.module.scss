@@ -1,0 +1,71 @@
+@mixin common(
+  $background-color: var(--w1),
+  $color: var(--b1),
+  $borderRadius: 24px
+) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  color: $color;
+  background-color: $background-color;
+  background-image: linear-gradient(
+    135deg,
+    rgb(255 255 255 / 0%) 0%,
+    rgb(255 255 255 / 0%) 100%
+  );
+  border: none;
+  border-radius: $borderRadius;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.rectRed {
+  @include common($background-color: var(--red1), $color: var(--w1));
+}
+
+.rectOutlineWhite {
+  @include common($background-color: var(--w1), $color: var(--b1));
+}
+
+.large {
+  width: 240px;
+  height: 60px;
+
+  span {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+.medium {
+  width: 180px;
+  height: 44px;
+
+  span {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+.none {
+  span {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+.full-width {
+  width: 100%;
+  max-width: initial;
+}

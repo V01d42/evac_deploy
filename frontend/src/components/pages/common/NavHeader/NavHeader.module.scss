@@ -1,0 +1,19 @@
+@use '@/styles/mixin' as *;
+
+.headerContainer {
+  position: fixed;
+  width: 100%;
+  height: 70px;
+  top: 0;
+  left: 0;
+  background-color: var(--red1);
+  z-index: 10000;
+}
+
+.headerContainerInner {
+  position: relative;
+  max-width: 1080px;
+  padding: 0 20px;
+  width: 100%;
+  height: 70px;
+}

@@ -1,0 +1,23 @@
+.container {
+  position: relative;
+  padding: 40px 0;
+}
+
+.inputContainer {
+  flex-wrap: wrap;
+}
+
+.bg {
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--w2);
+  z-index: -10;
+}
+
+.input {
+  background-color: var(--w1);
+}

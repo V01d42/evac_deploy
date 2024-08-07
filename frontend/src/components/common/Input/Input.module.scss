@@ -1,0 +1,36 @@
+.primary {
+  font-size: 14px;
+
+  span {
+    flex-shrink: 0;
+  }
+}
+
+.input {
+  width: 100%;
+  max-width: 100%;
+  max-height: 38px;
+  padding: 11px;
+  font-size: 14px;
+  border: 1px solid #e5e5e5;
+  border-radius: 2px;
+  background-color: #fafafa;
+
+  &:disabled {
+    background-color: #e5e5e5;
+  }
+
+  &::placeholder {
+    color: #c4c4c4;
+  }
+
+  &:-webkit-autofill {
+    box-shadow: 0 0 0 300px #ffffff inset;
+  }
+}
+
+.explanation {
+  font-size: 12px;
+  color: #828282;
+  line-height: 150%;
+}

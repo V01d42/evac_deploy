@@ -1,0 +1,17 @@
+.sectionWrap {
+  overflow: scroll;
+  width: 100%;
+  max-height: 100vh;
+  max-height: 100dvh;
+}
+
+.sectionWrapInner {
+  max-width: 1080px;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.container {
+  padding-top: 70px;
+}

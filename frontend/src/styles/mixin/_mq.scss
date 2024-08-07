@@ -1,0 +1,15 @@
+// prettier-ignore
+$mq-breakpoints-max: (
+  'xs': '480px', /* スマートフォンのの最大幅 */
+  'sp': '560px', /* 小さめのデバイス */ 
+  'sm': '600px', /* タブレットのや大きめのスマートフォンの横幅 */ 
+  'md': '767px', /* iPadのポートレートモードの最大幅 - 1px */ 
+  'lg': '960px', /* 一般的なデスクトップ画面 */
+  'xl': '1680px', /* 大きなデスクトップ画面、高解像度の画面 */
+) !default;
+
+@mixin mq($breakpoint: md) {
+  @media screen and (max-width: #{map-get($mq-breakpoints-max, $breakpoint)}) {
+    @content;
+  }
+}

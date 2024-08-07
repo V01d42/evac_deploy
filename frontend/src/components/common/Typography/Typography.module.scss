@@ -1,0 +1,23 @@
+.root {
+  display: inline-block;
+  color: var(--color);
+}
+
+.gothic {
+  font-family: 'Protest Strike', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.multiLine {
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--line-num);
+}

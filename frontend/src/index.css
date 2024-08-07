@@ -1,0 +1,32 @@
+#root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: white;
+}
+
+p {
+  margin: 0;
+}
+
+:root {
+  --b1: #484848;
+  --b2: #828282;
+  --b3: #c4c4c4;
+  --w1: #ffffff;
+  --w11: #fafafa;
+  --w2: #f8f8f8;
+  --w21: #f4f5f7;
+  --w3: #efefef;
+  --w4: #e5e5e5;
+  --red1: #bb0c0c;
+  --blue1: #0071e3;
+}
