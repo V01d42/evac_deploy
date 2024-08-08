@@ -1,12 +1,10 @@
 import React from 'react';
 
 import { useState, useMemo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Map, { Marker, Popup, NavigationControl } from 'react-map-gl';
 import styles from './TopPage.module.scss';
 import redframe from '@/assets/red.png';
-import { fetchGeocode } from '@/libs/services/getCoordinate'
 
 // for testing
 const TESTDATA = [
@@ -27,7 +25,6 @@ const TESTDATA = [
 ];
 
 const TopPage: React.FC = () => {
-  const navigate = useNavigate();
   const renderStars = (rating: number) => {
     const fullStars = Math.floor(rating);
     const halfStar = rating % 1 !== 0 ? 1 : 0;

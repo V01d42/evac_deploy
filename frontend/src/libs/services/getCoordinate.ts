@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
 // search/geocode/v6/forward のレスポンスの型
 interface GeocodeResponse {
