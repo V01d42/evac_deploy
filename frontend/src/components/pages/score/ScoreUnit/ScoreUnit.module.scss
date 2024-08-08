@@ -1,0 +1,64 @@
+
+.color_rakuten{
+    color: #bf0000;
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+
+.chart{
+    position: relative;
+    margin-bottom: 1rem;
+}
+.chart>p{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+
+}
+.chart>p span{
+    font-weight: bold;
+    font-size: 5rem;
+}
+
+.chart_hanrei{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+.chart_hanrei>div{
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+.chart_hanrei>div>div{
+    width: 30px;
+    height:30px;
+    margin-right: 5px;
+}
+.chart_hanrei>div:nth-child(3)>div{
+    background: rgba(255, 0, 0, 1);
+}
+.chart_hanrei>div:nth-child(2)>div{
+    background: rgba(255, 255, 0, 1);
+}
+.chart_hanrei>div:nth-child(1)>div{
+    background: rgba(0, 255, 255, 1);
+}
+.chart_hanrei>div>p{
+    
+}
+
+.chartwrapper {
+    margin: auto;
+} 
+
+
+ @media (max-width: 370px) {
+    .color_rakuten{
+        font-size: 20px;
+    }
+ }

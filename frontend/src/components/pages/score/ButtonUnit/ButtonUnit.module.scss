@@ -1,0 +1,35 @@
+.score_button {
+  position: relative;
+  padding-bottom: 30px;
+}
+.score_button a {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  width: fit-content;
+  margin: auto;
+  padding: 1rem 3rem;
+  font-weight: bold;
+  border-radius: 0.3rem;
+  background: #bf0000;
+  color: #fff;
+  box-shadow: 10px 5px 5px rgba($color: #000000, $alpha: 0.5);
+  transition: box-shadow 0.3s ease;
+}
+.score_button a:hover {
+  color: #fff;
+  box-shadow: none;
+  filter: brightness(1.1); /* 明るくする */
+  box-shadow: 5px 2px 2px rgba($color: #000000, $alpha: 0.5);
+}
+
+.bg {
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--w2);
+  z-index: -10;
+}

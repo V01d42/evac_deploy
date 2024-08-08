@@ -17,6 +17,10 @@ p {
   margin: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 :root {
   --b1: #484848;
   --b2: #828282;

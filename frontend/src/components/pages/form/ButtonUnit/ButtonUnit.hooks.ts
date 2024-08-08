@@ -2,6 +2,7 @@ import { useAuthContext } from '@/context/auth.context';
 import { useModalContext } from '@/context/modal.context';
 import { itemsRepository, shelterRepository } from '@/libs/repository/firebase';
 import { fetchGeocode } from '@/libs/services/getCoordinate';
+import { calculateScore } from '@/libs/services/scoreMethods';
 import { FormValue } from '@/types/form/form.types';
 import { useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -36,14 +37,18 @@ export const useButtonUnit = () => {
     const prevScore = shelterData.score;
     const shelterId = shelterData.id;
     const isModalActive = prevScore !== 0;
+    const score = calculateScore({
+      items: formData.items,
+      capacity: formData.capacity,
+    });
 
-    setModalData({ score: formData.capacity, prevScore, isModalActive });
+    setModalData({ score, prevScore, isModalActive });
 
     await shelterRepository.update(shelterId, {
       name: formData.name,
       address: formData.address,
       capacity: formData.capacity,
-      score: formData.capacity, // scoreを算出する関数から割り当てる
+      score: score,
       coordinates: {
         longitude: coordinate.longitude,
         latitude: coordinate.latitude,

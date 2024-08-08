@@ -1,95 +1,94 @@
 import { Item } from '@/types/firestore/item.types';
 import { itemsRepository, shelterRepository } from '../repository/firebase';
 
-// Gets # of Megaphone
-export const getItems = async (shelterId: string): Promise<Item | undefined> => {
-  const items = await itemsRepository({ shelterId }).get();
-  return items;
-};
-
-// Gets Shelter capacity
-export const getShelterCapacity = async (shelterId: string): Promise<number | undefined> => {
-  const shelter = await shelterRepository.get({ id: shelterId });
-  return shelter?.capacity;
-};
-
 // Gets Ideal Amount
-export const getIdealAmount = async (shelterId: string): Promise<Item | undefined> => {
-  const capacity = await getShelterCapacity(shelterId);
-  if (capacity === undefined) {
-    return undefined;
-  }
-
-
-  const factor = 5;
-
-
+export const getIdealAmount = ({ capacity }: { capacity: number }): Item => {
   const idealAmount: Item = {
-    food: capacity * factor,
-    water: capacity * factor,
-    blanket: capacity * factor,
-    phone: capacity * factor,
-    flashlight: capacity * factor,
-    television: capacity * factor,
-    fan: capacity * factor,
-    generator: capacity * factor,
-    tent: capacity * factor,
-    heatPack: capacity * factor,
-    megaphone: capacity * factor,
+    // 一日過ごすのに必要な物資量？
+    food: 4 * capacity,
+    water: 2 * capacity,
+    blanket: 1 * capacity,
+    phone: 0.04 * capacity, //1 per 25 ppl
+    flashlight: 0.25 * capacity, //1 per 4 ppl
+    television: 0.02 * capacity, //1 per 50ppl
+    fan: 0.25 * capacity, //1 per 4 ppl
+    generator: 0.05 * capacity, // 1 per 20 ppl
+    tent: 0.02 * capacity, //1 per 50 ppl
+    heatPack: 2 * capacity,
+    megaphone: 0.05 * capacity, //1 per 20 ppl
   };
 
   return idealAmount;
 };
 
-export const missingAmount = async (shelterId: string): Promise<Partial<Item> | undefined> => {
-    const totalItem = await getItems(shelterId);
-    if (totalItem === undefined) {
-      return undefined;
-    }
-    const idealItem = await getIdealAmount(shelterId);
-    if (idealItem === undefined) {
-      return undefined;
-    }
-  
-    const missingAmount: Partial<Item> = {};
-  
-    if (idealItem.food - totalItem.food > 0) missingAmount.food = idealItem.food - totalItem.food;
-    if (idealItem.water - totalItem.water > 0) missingAmount.water = idealItem.water - totalItem.water;
-    if (idealItem.blanket - totalItem.blanket > 0) missingAmount.blanket = idealItem.blanket - totalItem.blanket;
-    if (idealItem.phone - totalItem.phone > 0) missingAmount.phone = idealItem.phone - totalItem.phone;
-    if (idealItem.flashlight - totalItem.flashlight > 0) missingAmount.flashlight = idealItem.flashlight - totalItem.flashlight;
-    if (idealItem.television - totalItem.television > 0) missingAmount.television = idealItem.television - totalItem.television;
-    if (idealItem.fan - totalItem.fan > 0) missingAmount.fan = idealItem.fan - totalItem.fan;
-    if (idealItem.generator - totalItem.generator > 0) missingAmount.generator = idealItem.generator - totalItem.generator;
-    if (idealItem.tent - totalItem.tent > 0) missingAmount.tent = idealItem.tent - totalItem.tent;
-    if (idealItem.heatPack - totalItem.heatPack > 0) missingAmount.heatPack = idealItem.heatPack - totalItem.heatPack;
-    if (idealItem.megaphone - totalItem.megaphone > 0) missingAmount.megaphone = idealItem.megaphone - totalItem.megaphone;
-  
-    return missingAmount;
-};
-  
+export const getMissingAmount = async ({
+  shelterId,
+}: {
+  shelterId: string;
+}): Promise<Item | undefined> => {
+  const shelterData = await shelterRepository.get({ id: shelterId });
+  if (!shelterData) {
+    return undefined;
+  }
+  const totalItem = await itemsRepository({ shelterId }).get();
+  if (!totalItem) {
+    return undefined;
+  }
 
-export const calculateScore = async (shelterId: string): Promise<number> => {
-    const totalItem = await getItems(shelterId);
-    if (totalItem === undefined) {
-      return 0; 
-    }
-    const idealItem = await getIdealAmount(shelterId);
-    if (idealItem === undefined) {
-      return 0; 
-    }
-  
-    let totalMissing = 0;
-    let totalIdeal = 0;
-  
-    const items = Object.keys(idealItem) as (keyof Item)[];
-    for (const item of items) {
-      totalMissing += Math.max(0, idealItem[item] - totalItem[item]);
-      totalIdeal += idealItem[item];
-    }
-  
-    const missingRatio = totalMissing / totalIdeal;
-    const score = 5 - (missingRatio * 5);
-  
-    return Math.max(0, Math.min(5, parseFloat(score.toFixed(1))));
+  const idealItem = getIdealAmount({ capacity: shelterData.capacity });
+
+  const missingAmount: Item = {
+    food: Math.max(0, idealItem.food - totalItem.food),
+    water: Math.max(0, idealItem.water - totalItem.water),
+    blanket: Math.max(0, idealItem.blanket - totalItem.blanket),
+    phone: Math.max(0, idealItem.phone - totalItem.phone),
+    flashlight: Math.max(0, idealItem.flashlight - totalItem.flashlight),
+    television: Math.max(0, idealItem.television - totalItem.television),
+    fan: Math.max(0, idealItem.fan - totalItem.fan),
+    generator: Math.max(0, idealItem.generator - totalItem.generator),
+    tent: Math.max(0, idealItem.tent - totalItem.tent),
+    heatPack: Math.max(0, idealItem.heatPack - totalItem.heatPack),
+    megaphone: Math.max(0, idealItem.megaphone - totalItem.megaphone),
   };
+
+  return missingAmount;
+};
+
+const itemWeights = {
+  food: 1.5,
+  water: 2,
+  blanket: 1.5,
+  phone: 0.5,
+  flashlight: 0.8,
+  television: 0.3,
+  fan: 0.5,
+  generator: 1,
+  tent: 0.7,
+  heatPack: 1,
+  megaphone: 0.4,
+};
+
+export const calculateScore = ({
+  items,
+  capacity,
+}: {
+  items: Item;
+  capacity: number;
+}): number => {
+  let totalMissing = 0;
+  let totalIdeal = 0;
+
+  const idealItems = getIdealAmount({ capacity });
+
+  const itemKeys = Object.keys(idealItems) as (keyof Item)[];
+  for (const item of itemKeys) {
+    totalMissing +=
+      Math.max(0, idealItems[item] - items[item]) * (itemWeights[item] || 1);
+    totalIdeal += idealItems[item] * (itemWeights[item] || 1);
+  }
+
+  const missingRatio = totalMissing / totalIdeal;
+  const score = 5 - missingRatio * 5;
+
+  return Math.max(0, Math.min(5, parseFloat(score.toFixed(1))));
+};

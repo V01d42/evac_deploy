@@ -24,14 +24,24 @@ const LogInPageInternal: React.FC = () => {
             <label htmlFor='email' className={styles.label}>
               ユーザー名
             </label>
-            <input id='email' type='string' {...register('email')} />
+            <input
+              id='email'
+              type='string'
+              {...register('email')}
+              className={styles.input}
+            />
             {emailError && <p className={styles.error}>{emailError}</p>}
           </div>
           <div className={styles.formGroup}>
             <label htmlFor='password' className={styles.label}>
               パスワード
             </label>
-            <input id='password' type='password' {...register('password')} />
+            <input
+              id='password'
+              type='password'
+              {...register('password')}
+              className={styles.input}
+            />
             {passwordError && <p className={styles.error}>{passwordError}</p>}
           </div>
           <div className={styles.buttonContainer}>
