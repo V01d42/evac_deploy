@@ -1,37 +1,50 @@
+import { useAuthContext } from '@/context/auth.context';
+import { useModalContext } from '@/context/modal.context';
 import { itemsRepository, shelterRepository } from '@/libs/repository/firebase';
+import { fetchGeocode } from '@/libs/services/getCoordinate';
 import { FormValue } from '@/types/form/form.types';
-import { generateId } from '@/utils/generateId';
 import { useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
 export const useButtonUnit = () => {
   const processing = useRef(false);
   const { handleSubmit } = useFormContext<FormValue>();
+  const { uid, setUid } = useAuthContext();
+  const { setModalData } = useModalContext();
+  const navigate = useNavigate();
 
   const onSubmit = async (formData: FormValue) => {
     if (processing.current) return;
     processing.current = true;
-    // submitする処理
-    console.log(formData);
+
+    if (uid === '') {
+      alert('ログインしていません。ログインし直してください');
+      navigate('/login');
+      return;
+    }
 
     // scoreを算出する関数をここに
-    // 住所からcoordinatesを算出する関数をここに
+    const coordinate = await fetchGeocode(formData.address, 'jp', 'ja', import.meta.env.VITE_MAPBOX_TOKEN);
+    const shelterDatum = await shelterRepository.list([['uid', '==', uid]]);
+    const shelterData = shelterDatum[0];
+    const prevScore = shelterData.score;
+    const shelterId = shelterData.id;
+    const isModalActive = prevScore !== 0;
 
-    const shelterId = generateId();
+    setModalData({ score: formData.capacity, prevScore, isModalActive });
 
-    await shelterRepository.create({
-      id: shelterId,
+    await shelterRepository.update(shelterId, {
       name: formData.name,
       address: formData.address,
       capacity: formData.capacity,
-      uid: 'aaa', // contextから取得して割り当てる
-      score: 0, // scoreを算出する関数から割り当てる
+      score: formData.capacity, // scoreを算出する関数から割り当てる
       coordinates: {
-        longitude: 0, // 住所からcoordinatesを算出する関数から割り当てる
-        latitude: 0, // 住所からcoordinatesを算出する関数から割り当てる
+        longitude: coordinate.longitude, // 住所からcoordinatesを算出する関数から割り当てる
+        latitude: coordinate.latitude, // 住所からcoordinatesを算出する関数から割り当てる
       },
     });
-    await itemsRepository({ shelterId }).create({
+    await itemsRepository({ shelterId }).update({
       food: formData.items.food,
       water: formData.items.water,
       blanket: formData.items.blanket,
@@ -44,11 +57,15 @@ export const useButtonUnit = () => {
       heatPack: formData.items.heatPack,
       megaphone: formData.items.megaphone,
     });
+    navigate('/score');
   };
 
   const submitHandler = handleSubmit((data) => onSubmit(data));
 
-  const backHandler = () => {};
+  const backHandler = () => {
+    setUid('');
+    navigate('/login');
+  };
 
   return {
     submitHandler,

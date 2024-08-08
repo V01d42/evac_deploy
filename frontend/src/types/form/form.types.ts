@@ -1,14 +1,12 @@
 import { z } from 'zod';
 
 export const FormSchema = z.object({
-  id: z.string(),
-  createdAt: z.date(),
   name: z.string().min(1, '必須項目です'), // 施設名
   address: z.string().min(1, '必須項目です'), // 住所
   capacity: z.preprocess(
     (v) => Number(v),
     z.number().min(0, '正しい形式で入力してください'),
-  ), // 収容人数(人)
+  ), 
   items: z.object({
     food: z.preprocess(
       (v) => Number(v),

@@ -1,5 +1,5 @@
 import { Item } from '@/types/firestore/item.types';
-import { itemsRepository, shelterRepository } from '../libs/repository/firebase';
+import { itemsRepository, shelterRepository } from '../repository/firebase';
 
 // Gets # of Megaphone
 export const getItems = async (shelterId: string): Promise<Item | undefined> => {
