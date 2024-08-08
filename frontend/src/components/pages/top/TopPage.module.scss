@@ -11,36 +11,55 @@
   font-size: var(--font-size-normal);
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 40px 0;
 }
 
 .title {
   font-size: var(--font-size-title);
-  margin-top: 20px;
   color: var(--main-color);
+  font-weight: 600;
+}
+
+.mapContainer {
+  position: relative;
+  width: '100%';
+  height: 500px;
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 24px;
 }
 
 .contentWrapper {
-  width: 100%; /* 确保内容宽度为100% */
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.subtitle {
+.infoTitle {
   font-size: var(--font-size-title);
-  margin-top: 20px; /* 保持 subtitle 与 redFrameContainer 的距离 */
   color: var(--main-color);
   text-align: center;
   width: 100%;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.subTitle {
+  color: var(--main-color);
+  font-size: 12px;
+  margin-bottom: 10px;
+  opacity: 0.8;
 }
 
 .redFrameContainer {
-  margin-top: 40px;
+  width: 100%;
   height: 225px;
-  justify-content: center;
-  position: relative;
-  background-color: var(--background-color);
 }
 
 .redFrameImage {
@@ -49,19 +68,18 @@
 }
 
 .frameContent {
-  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   color: black;
   z-index: 2;
-  gap: 20px; /* 设置每行之间的间距 */
+  gap: 16px;
+  border-radius: 10px;
+  border: 3px solid var(--main-color);
+  background-color: var(--background-color);
 }
 
 .starsContainer {
@@ -73,6 +91,11 @@
 .stars {
   display: flex;
   align-items: center;
+}
+
+.address {
+  font-size: 14px;
+  opacity: 0.8;
 }
 
 .fullStar,
@@ -100,4 +123,7 @@ button:hover {
   width: 100%;
   height: 500px;
   margin-bottom: 20px;
+}
+
+.popup {
 }

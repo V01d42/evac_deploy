@@ -25,7 +25,12 @@ export const useButtonUnit = () => {
     }
 
     // scoreを算出する関数をここに
-    const coordinate = await fetchGeocode(formData.address, 'jp', 'ja', import.meta.env.VITE_MAPBOX_TOKEN);
+    const coordinate = await fetchGeocode(
+      formData.address,
+      'jp',
+      'ja',
+      import.meta.env.VITE_MAPBOX_TOKEN,
+    );
     const shelterDatum = await shelterRepository.list([['uid', '==', uid]]);
     const shelterData = shelterDatum[0];
     const prevScore = shelterData.score;
@@ -40,8 +45,8 @@ export const useButtonUnit = () => {
       capacity: formData.capacity,
       score: formData.capacity, // scoreを算出する関数から割り当てる
       coordinates: {
-        longitude: coordinate.longitude, // 住所からcoordinatesを算出する関数から割り当てる
-        latitude: coordinate.latitude, // 住所からcoordinatesを算出する関数から割り当てる
+        longitude: coordinate.longitude,
+        latitude: coordinate.latitude,
       },
     });
     await itemsRepository({ shelterId }).update({

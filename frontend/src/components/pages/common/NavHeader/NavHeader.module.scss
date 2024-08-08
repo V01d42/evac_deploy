@@ -26,16 +26,13 @@
 }
 
 .loginButton {
-  margin-top: 0; /* 根据需要调整 */
-  padding: 10px 20px;
-  font-size: 13px;
+  margin-top: 0;
   color: #fff;
   background-color: rgb(146, 19, 19);
+  border-radius: 5px;
+  font-size: 14px;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
-  white-space: nowrap;
-  margin-right: 20px;
 }
 
 .loginButton:hover {

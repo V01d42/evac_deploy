@@ -13,7 +13,11 @@ const NavHeader = () => {
       justifyContent='center'
       className={styles.headerContainer}
     >
-      <FlexBox className={styles.headerContainerInner}>
+      <FlexBox
+        justifyContent='space-between'
+        alignItems='center'
+        className={styles.headerContainerInner}
+      >
         <img
           src={logo}
           alt='logo'
@@ -21,15 +25,15 @@ const NavHeader = () => {
           className={styles.headerIcon}
           onClick={() => navigate('/')}
         />
+        {location.pathname === '/' && (
+          <button
+            onClick={() => navigate('/login')}
+            className={styles.loginButton}
+          >
+            ログイン
+          </button>
+        )}
       </FlexBox>
-      {location.pathname === '/' && (
-        <button
-          onClick={() => navigate('/login')}
-          className={styles.loginButton}
-        >
-          ログイン
-        </button>
-      )}
     </FlexBox>
   );
 };
