@@ -2,7 +2,6 @@
   --main-color: rgb(186, 27, 27);
   --background-color: rgba(255, 182, 193, 0.8);
   --font-size-title: 28px;
-  --font-size-normal: 20px;
   --star-color: red;
 }
 
@@ -11,7 +10,7 @@
   font-size: var(--font-size-normal);
   flex-direction: column;
   align-items: center;
-  padding: 40px 0;
+  padding: 40px 0 0;
 }
 
 .title {
@@ -35,6 +34,7 @@
 }
 
 .contentWrapper {
+  margin-bottom: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -120,10 +120,90 @@ button:hover {
 }
 
 .mapContainer {
+  margin-top: 20px;
   width: 100%;
   height: 500px;
   margin-bottom: 20px;
 }
 
+.shelterCard {
+  background-color: #f0f0f0; /* Light grey background */
+  border-radius: 8px; /* Rounded corners */
+  padding: 16px; /* Padding inside the card */
+  margin-bottom: 16px; /* Space between cards */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.shelterInfo h4 {
+  margin: 0 0 8px 0; /* Space below the title */
+}
+
+.shelterInfo p {
+  margin: 4px 0; /* Space between paragraphs */
+}
 .popup {
+  background-color: white;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  max-width: 200px;
+  font-size: 12px;
+  color: #333;
+}
+
+.popup h4 {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+}
+
+.popup p {
+  margin: 0;
+}
+
+.topShelters {
+  margin-top: 20px;
+}
+
+.rankingContainer {
+  position: relative;
+  width: 100%;
+  padding: 40px 0;
+  margin-top: 30px;
+}
+
+.bg {
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -10;
+  background-color: var(--w2);
+}
+
+.inputContainer {
+  margin-top: 20px;
+}
+
+.input {
+  width: calc(100% - 80px);
+  padding: 8px;
+  background-color: var(--w1);
+  border: 1px solid var(--b3);
+  border-radius: 4px;
+}
+
+.searchButton {
+  align-items: center;
+  width: 80px;
+  margin: 0;
+}
+
+.noResult {
+  padding: 40px 0 0;
+}
+
+.shelterTitle {
+  padding-bottom: 8px;
 }
